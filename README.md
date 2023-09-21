@@ -38,7 +38,7 @@ following fields:
 - `poster_image`: The URL of the movie poster image, stored in Cloudinary.
 - `score`: The movie's score, assigned by the user when adding the movie to their list.
 - `genre`: The movie's genre, stored as a reference to the corresponding genre document.
-- `overview`: A brief description of the movie. **New**
+- `sinopsis`: A brief description of the movie. **New**
 
 ### 🏷️ Genres
 
@@ -242,7 +242,7 @@ through the course content, they will be adding new functionalities and, if nece
     ```
 
   | Route                    | Example URL | params      |
-  |--------------------------|-------------|-------------|
+    |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
@@ -552,8 +552,8 @@ To consider the project as completed and suitable for evaluation, students must 
 
 ### 💻 Basic Page Functionality: There must be at least the following pages in the application:
 
-- Home page (/)
-- Movie list (/movies)
+- Login page (/)
+- Home page (/movies)
 - Details of each movie (/movies/[id])
 
 ### 🛠️ CRUD Operations: The application must allow the following CRUD operations for movies:
