@@ -242,7 +242,7 @@ through the course content, they will be adding new functionalities and, if nece
     ```
 
   | Route                    | Example URL | params      |
-      |--------------------------|-------------|-------------|
+  |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
