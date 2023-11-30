@@ -1,6 +1,6 @@
-`#react` `#nextjs` `#movies` `#frontend` `#typescript`  `#assembler-institute-of-technology` `#master-in-software-engineering`
+`#react` `#nextjs` `#CI` `#CD` `#vitest` `#movies` `#jenkins` `#frontend` `#typescript` `#react-testing-library` `#assembler-institute-of-technology` `#master-in-software-engineering`
 
-# 🎬 MovieHub Project in Next.js
+# 🎬 MovieHub: Comprehensive Next.js Development with CI/CD and Testing
 
 ## 📝 General Description
 
@@ -242,7 +242,7 @@ through the course content, they will be adding new functionalities and, if nece
     ```
 
   | Route                    | Example URL | params      |
-    |--------------------------|-------------|-------------|
+                  |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
@@ -502,6 +502,238 @@ export const removeUserAccount = async (id: string) => {
 
 ---
 
+## 🚦 Phase 5: Implementing CI/CD with Jenkins
+
+### 🔄 Introduction to CI/CD
+
+**Learning Objective:** Understand the fundamental concepts of Continuous Integration (CI) and Continuous Deployment (
+CD) and their importance in the software development lifecycle.
+
+#### Theoretical Contents
+
+1. **Fundamentals of CI/CD:** Understand the principles of CI/CD, its evolution from traditional development methods,
+   and how it contributes to the agility and efficiency of software development.
+2. **Benefits of CI/CD:** Explore how implementing CI/CD improves code quality, reduces time to market, and facilitates
+   the management of multiple code versions.
+
+#### Installation and Configuration of Jenkins
+
+**Learning Objective:** Learn how to install and configure Jenkins as a key tool for implementing CI/CD.
+
+#### Step 1: Jenkins Installation
+
+Install Jenkins in the development environment following the official guide. Ensure that you meet the prerequisites and
+choose the appropriate Jenkins version for your working environment.
+
+#### Step 2: Initial Configuration of Jenkins
+
+Once installed, perform the initial configuration of Jenkins. This includes:
+
+- User and role creation.
+- Security and permissions configuration.
+- Network and accessibility settings.
+
+#### Step 3: Installation of Essential Plugins
+
+Install the following plugins to enhance Jenkins' functionality and support project needs:
+
+1. **AnsiColor:** Provides support for ANSI colors in console outputs.
+2. **Slack Notification Plugin:** Allows sending Jenkins event notifications to a Slack channel.
+3. **NodeJS Plugin:** Facilitates running builds and scripts that require Node.js.
+
+#### Step 4: Configuration of the NodeJS Plugin
+
+To configure the NodeJS plugin:
+
+1. Navigate to `Manage Jenkins > Global Tool Configuration`.
+2. In the `NodeJS installations` section, add a new NodeJS installation.
+3. Define an identifying name for the installation.
+4. Select the desired Node.js version from the provided list.
+5. Apply and save the changes.
+
+#### Step 5: Configuration of GitHub Credentials
+
+Configure credentials to access GitHub repositories:
+
+1. Go to `Manage Jenkins > Manage Credentials`.
+2. In the `Global credentials (unrestricted)` domain, select `Add Credentials`.
+3. Choose the credential type `Username with password`.
+4. Enter your GitHub username and password.
+5. Add an identifying description for the credential.
+6. Click `Create` to save the credential.
+
+These steps ensure that Jenkins is correctly configured with the necessary tools and plugins to support the CI/CD
+processes of the project. Additionally, integrating GitHub credentials facilitates automation and secure access
+management to code repositories.
+
+### ⛗ Definition of CI/CD Workflows
+
+**Learning Objective:** Design and configure CI/CD workflows for development and production environments.
+
+#### Creating a New Workflow (Job)
+
+1. **Getting Started:** Go to `New Item` on the Jenkins dashboard.
+2. **Project Type:** Select `Freestyle project`.
+3. **Name the Workflow:** Assign a meaningful name to the project and click `OK`.
+
+#### Workflow Configuration
+
+Once the workflow is created, it should be configured according to the following sections:
+
+#### General
+
+- **Description:** Define a clear and concise description for the workflow.
+- **Integration with GitHub:** Check the `GitHub project` option and enter the URL of the project's repository,
+  e.g., `https://github.com/alejandroaperez1994g/jenkins-workflow/`.
+
+#### Source Code Management
+
+- **Repository Selection:** Choose `Git` as the source code management system.
+- **Repository URL:** Enter the repository URL ending in `.git`,
+  e.g., `https://github.com/alejandroaperez1994g/jenkins-workflow.git`.
+- **Credentials:** Use the previously configured GitHub credentials.
+- **Branches to Build:** Specify the branch to work on, e.g., `/develop`.
+
+#### Build Triggers
+
+- **Build Automation:** Check `Poll SCM` and define the schedule in cron format, such as `/5 * * * *` to run every 5
+  minutes.
+
+#### Build Environment
+
+- **Environment Settings:**
+    - Select `Add timestamps to the Console Output`.
+    - Check `Color ANSI Console Output` and leave the `Ansi color map` as `xterm`.
+    - Choose `Provide Node & npm bin/ folder to PATH` and specify the previously defined NodeJS installation.
+
+#### Build Steps
+
+In this section, define the specific steps that Jenkins will execute as part of the integration and deployment process.
+
+1. **Add Build Step:** In the `Build Steps` section, select `Add build step`.
+2. **Execute Shell Scripts:**
+    - **First Step - Dependency Installation:** Add `Execute shell` and write `npm install` to install necessary
+      dependencies.
+    - **Second Step - Test Execution:** Add another `Execute shell` and write `npm run test` to run project tests.
+    - **Third Step - Deployment to Vercel:** Add a third `Execute shell` and use the Vercel command to deploy the
+      application. The command should include the Vercel token, project name, and environment variables, for
+      example: `vercel --token [vercel token] --yes -n [vercel project name] --build-env [ENVIRONMENT VARIABLE NAME]=[environment variable value]`.
+
+#### Post-build Actions
+
+Finally, configure the actions that will be performed after the project build:
+
+- **Delete Workspace:** In `Post-build Actions`, select `Delete workspace when build is done`. This ensures that the
+  workspace is cleaned up after each build, keeping the Jenkins environment tidy and efficient.
+
+The described steps provide a solid and detailed foundation for understanding how Jenkins works in practice. Now, you
+are equipped to configure two main workflows:
+
+1. **Development Workflow:** This flow will automatically trigger when a `push` is made to the `develop` branch on
+   GitHub. Its primary function is to run automated tests and any other important development operations, such as code
+   quality analysis. After successfully passing these tests, the workflow will deploy the application to Vercel in
+   development mode. This allows you to see real-time changes and ensure everything works as expected before moving to
+   the production phase.
+2. **Production Workflow:** Unlike the development flow, this one will be manually triggered. The process involves
+   merging the `develop` branch into the `main` branch, ensuring that all features and fixes are ready for release.
+   Then, similar to the development workflow, tests and other necessary operations will be performed to confirm that
+   everything is in order. Finally, the application will be deployed to Vercel in production mode, meaning your updates
+   will be available to the general public.
+
+These two flows provide a comprehensive understanding of how CI/CD practices can be used to improve and automate the
+software development and deployment process. With this knowledge, you can configure and tailor your own workflows in
+Jenkins to meet the specific needs of your projects.
+
+### 🔔 Integration with Slack for Notifications [EXTRA]
+
+#### Creating an Account and Channel in Slack
+
+1. **Create a Slack Account:** Start by creating a new Slack account if you don't already have one.
+2. **Create a Notification Channel:** Once inside Slack, create a new channel to receive Jenkins notifications.
+   Right-click on "Channels" and select "Create."
+3. **Name the Channel:** Assign an identifying name to the channel that will be specifically used for Jenkins
+   notifications.
+
+#### Configuring the Jenkins Integration Application in Slack
+
+1. **Add Jenkins Application to Slack:** Within Slack, click on "Explore Slack," then "Apps."
+2. **Search for Jenkins CLI:** In the applications menu, search for "Jenkins CLI."
+3. **Add Jenkins CLI to Slack:** Select "Jenkins CLI" and click "Add to Slack."
+4. **Choose the Channel:** Choose the channel you created earlier for notifications and click "Add Jenkins CI
+   Integration."
+5. **Final Configuration:** A window with step-by-step instructions will open to complete the integration setup.
+
+#### Configuring Notifications in Jenkins
+
+1. **Access Workflow (Jobs) Configuration:** Inside Jenkins, go to the configuration of the workflow you want to set up.
+2. **Configure Notifications in Post-build Actions:** In the `Post-build Actions` section, add `Slack Notifications`.
+3. **Choose Notification Types:** Here, you can configure what types of notifications you want to send. For example, you
+   can choose options like `Notify Success`, `Notify Every Failure`, among others, to receive notifications about build
+   success or failure in real-time.
+
+With this integration, you will receive real-time notifications in Slack about the status of your workflows (Jobs) in
+Jenkins. This makes it easier to track progress and respond quickly to any issues that may arise during the integration
+and deployment process.
+
+---
+
+## 🧪 Phase 6: Implementation of Frontend and Backend Testing
+
+**Learning Objective:** Understand the importance of testing in software development for both frontend and backend, and
+become familiar with specific testing tools.
+
+### 🖥️ Frontend Testing with Vitest and React Testing Library
+
+**Learning Objective:** Learn to implement unit tests in the frontend using Vitest and React Testing Library.
+
+#### Features to Test
+
+1. **Movie Listing Component:**
+    - **List Rendering Test:** Confirm that the component displays a list of movies.
+2. **Movie Details Component:**
+    - **Details Rendering Test:** Verify that the details of a selected movie, including title, synopsis, and ratings,
+      are displayed correctly.
+3. **Movie Creation Component:**
+    - **User Interface Test:** Ensure that users can create a movie and that it is displayed correctly.
+
+#### Techniques and Methodologies
+
+- **Data Mocking:** Use simulated data to test components without relying on real-time API data.
+- **User Event Simulation:** Simulate events such as clicks and text inputs to test component interactivity.
+- **State and Prop Validation:** Verify that components correctly handle and render their states and props.
+
+By focusing on these specific tests, you not only ensure that the fundamental aspects of the application work as
+expected but also provide a solid foundation upon which you can build and expand your test suite as the project grows
+and develops.
+
+### ⚙️ Backend Testing with Jest
+
+**Learning Objective:** Develop skills to write effective unit tests in a backend built with Express, TypeScript,
+Prisma, and MongoDB, ensuring server functionality and robustness, and applying effective mocking techniques.
+
+#### Features to Test
+
+1. **Movie Management Functions:**
+    - **Test Movie CRUD Operations:** Verify that Create, Read, Update, and Delete (CRUD) operations for movie
+      management are performed correctly, making the correct calls to Prisma. Use mocks to simulate these interactions.
+    - **Test Movie Metadata:** Ensure that movie metadata (title, director, actors, duration) is sent correctly to
+      Prisma. Employ mocks to simulate these operations.
+
+#### Techniques and Methodologies
+
+- **Prisma Mocking:** Use mocks to simulate interactions with the Prisma database, focusing on the logic of functions
+  rather than database results.
+- **Isolated Testing:** Ensure that tests are unit tests and focus on individual aspects of backend logic without
+  depending on the real database or other system components.
+- **Call and Argument Validation:** Ensure that functions make the correct calls to Prisma methods with the appropriate
+  arguments.
+
+With this focus on unit testing, we emphasize the importance of validating backend logic in an isolated and efficient
+manner, which is crucial for ensuring project quality and reliability. These tests will provide a solid foundation for
+the ongoing maintenance and scalability of the application.
+
+---
+
 ## 📚 Additional Considerations
 
 ### 🖥️ Server Components
@@ -571,7 +803,23 @@ To consider the project as completed and suitable for evaluation, students must 
 - **Optimization**: Optimization practices must be applied, such as good use of **server components**.
 - **Routing Conventions**: Next.js routing conventions (**page**, **layout**, **loading**) must be followed.
 
- 
+### 🛠️ CI/CD with Jenkins
+
+- **Jenkins Workflows:** Development and configuration of two workflows in Jenkins:
+    - **Development Workflow:** Automation of tests and deployment in the development environment after each push to
+      the `develop` branch.
+    - **Production Workflow:** Configuration for manual deployment in production, including merging from `develop`
+      to `main`, test execution, and final deployment.
+- **Integration of Jenkins with Slack [Extra]:** Optional configuration to send Jenkins notifications to a specific
+  Slack channel.
+
+### 🧪 Testing
+
+- **Frontend Testing:**
+    - Creation of tests for key components such as listing, detailing, and creating movies.
+- **Backend Testing:**
+    - Creation of tests to check the CRUD of movies.
+
 ---
 
 ## 🌟 Optional Requirements
@@ -612,6 +860,13 @@ and how to deploy it.
 
 - [Official Next.js Documentation](https://nextjs.org/docs)
 - [Official Auth0 Documentation for Next.js integration](https://auth0.com/docs/quickstart/webapp/nextjs/01-login)
+- [Official Vercel Documentation](https://www.vercel.com/docs)
+- [Official Prisma Documentation](https://www.prisma.io/docs/concepts)
+- [Official MongoDB Documentation](https://docs.mongodb.com/)
+- [Official Jest Documentation](https://jestjs.io/docs/getting-started)
+- [Official React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
+- [Official Vitest Documentation](https://vitest.dev/guide/)
+- [Official Jenkins Documentation](https://www.jenkins.io/doc/)
 
 ---
 
