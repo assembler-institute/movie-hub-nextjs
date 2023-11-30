@@ -4,14 +4,23 @@
 
 ## 📝 General Description
 
-MovieHub is an educational project designed for students who wish to delve into Next.js, a JavaScript development
-framework. The project focuses on migrating an existing React.js application to Next.js. This migration will allow
-students to experiment with the unique advantages and features that Next.js offers, such as Server-Side Rendering (SSR),
-file-system-based routing, simplified data fetching, and Static Site Generation (SSG).
+MovieHub is an educational project tailored for students keen on exploring Next.js, a cutting-edge JavaScript
+development framework. This project revolves around transitioning an existing React.js application to Next.js, enabling
+students to engage with the distinct advantages and capabilities of Next.js. These include Server-Side Rendering (SSR),
+file-system-based routing, streamlined data fetching, and Static Site Generation (SSG).
 
-The MovieHub application will serve as a platform for keeping track of movies that users have watched. Each movie in the
-application will have a name, a rating, and a genre, and users will be able to perform CRUD (Create, Read, Update,
-Delete) operations on this list of movies.
+As part of this transition, MovieHub will evolve into a comprehensive learning experience, extending beyond basic
+development into the realms of Continuous Integration/Continuous Deployment (CI/CD) and advanced testing methodologies.
+The project will incorporate the implementation of CI/CD processes using Jenkins, focusing on automating testing and
+deployment workflows. This includes setting up a development workflow for automatic testing and deployment upon each
+commit to a 'develop' branch, and a production workflow for controlled deployment from 'develop' to 'main' branch,
+reflecting real-world software development practices.
+
+The core functionality of the MovieHub application will serve as a practical platform for tracking movies that users
+have watched. Each movie will feature essential details such as name, rating, and genre. Users will have the capability
+to perform CRUD (Create, Read, Update, Delete) operations on this movie list. This practical application will allow
+students to apply their learning in Next.js development, CI/CD processes, and testing in a real-world scenario, making
+MovieHub an all-encompassing project for modern web development education.
 
 ## 🗄 Data Model
 
@@ -54,8 +63,9 @@ to experiment and make changes as needed.
 
 ## 🚀 Project Phases
 
-The project will be divided into different phases, each focused on a specific aspect of Next.js. As students progress
-through the course content, they will be adding new functionalities and, if necessary, refactoring the code.
+The MovieHub project will be structured in distinct phases, each concentrating on a specific facet of Next.js
+development and modern software practices. As students advance through the course content, they will be enhancing the
+application by adding new functionalities and, where required, refactoring the code.
 
 ---
 
@@ -242,7 +252,7 @@ through the course content, they will be adding new functionalities and, if nece
     ```
 
   | Route                    | Example URL | params      |
-                  |--------------------------|-------------|-------------|
+                        |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
