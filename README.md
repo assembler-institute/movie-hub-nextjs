@@ -252,7 +252,7 @@ application by adding new functionalities and, where required, refactoring the c
     ```
 
   | Route                    | Example URL | params      |
-                        |--------------------------|-------------|-------------|
+                          |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
@@ -716,7 +716,7 @@ By focusing on these specific tests, you not only ensure that the fundamental as
 expected but also provide a solid foundation upon which you can build and expand your test suite as the project grows
 and develops.
 
-### ⚙️ Backend Testing with Jest
+### ⚙️ Backend Testing [EXTRA]
 
 **Learning Objective:** Develop skills to write effective unit tests in a backend built with Express, TypeScript,
 Prisma, and MongoDB, ensuring server functionality and robustness, and applying effective mocking techniques.
@@ -820,14 +820,14 @@ To consider the project as completed and suitable for evaluation, students must 
       the `develop` branch.
     - **Production Workflow:** Configuration for manual deployment in production, including merging from `develop`
       to `main`, test execution, and final deployment.
-- **Integration of Jenkins with Slack [Extra]:** Optional configuration to send Jenkins notifications to a specific
+- **Integration of Jenkins with Slack [EXTRA]:** Optional configuration to send Jenkins notifications to a specific
   Slack channel.
 
 ### 🧪 Testing
 
 - **Frontend Testing:**
     - Creation of tests for key components such as listing, detailing, and creating movies.
-- **Backend Testing:**
+- **Backend Testing [EXTRA]:**
     - Creation of tests to check the CRUD of movies.
 
 ---
