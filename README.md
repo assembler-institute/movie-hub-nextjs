@@ -252,7 +252,7 @@ application by adding new functionalities and, where required, refactoring the c
     ```
 
   | Route                    | Example URL | params      |
-                          |--------------------------|-------------|-------------|
+    |--------------------------|-------------|-------------|
   | app/movies/[id]/page.tsx | /movies/1   | { id: '1' } |
   | app/movies/[id]/page.tsx | /movies/2   | { id: '2' } |
   | app/movies/[id]/page.tsx | /movies/3   | { id: '3' } |
