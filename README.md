@@ -825,7 +825,7 @@ To consider the project as completed and suitable for evaluation, students must 
 
 ### 🧪 Testing
 
-- **Frontend Testing:**
+- **Frontend Testing [EXTRA]:**
     - Creation of tests for key components such as listing, detailing, and creating movies.
 - **Backend Testing [EXTRA]:**
     - Creation of tests to check the CRUD of movies.
